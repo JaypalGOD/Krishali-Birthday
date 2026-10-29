@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Happy Birthday Krishali</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;500&display=swap" rel="stylesheet">
+<style>
+  :root { --pink: #ff7eb3; --gold: #ffd166; --bg1: #1a0b2e; --bg2: #3b1c5a; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    min-height: 100vh; overflow-x: hidden; color: #fff; text-align: center;
+    font-family: Poppins, sans-serif;
+    background: radial-gradient(ellipse at top, var(--bg2), var(--bg1) 70%);
+    display: flex; align-items: center; justify-content: center; padding: 24px 16px;
+  }
+  canvas { position: fixed; inset: 0; pointer-events: none; }
+  main { position: relative; max-width: 640px; width: 100%; }
+  h1 { font-family: 'Dancing Script', cursive; font-size: clamp(2.6rem, 10vw, 5rem); color: var(--pink); text-shadow: 0 0 20px #ff7eb380; }
+  .sub { opacity: .8; margin: 8px 0 28px; }
+  .count { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .count div { background: #ffffff14; border: 1px solid #ffffff2a; border-radius: 14px; padding: 14px 10px; min-width: 76px; }
+  .count b { display: block; font-size: 2rem; color: var(--gold); }
+  .count span { font-size: .75rem; letter-spacing: .1em; text-transform: uppercase; opacity: .7; }
+  .hidden { display: none !important; }
+
+  /* cake */
+  .cake { position: relative; width: 200px; height: 150px; margin: 30px auto 10px; cursor: pointer; }
+  .layer { position: absolute; left: 50%; transform: translateX(-50%); border-radius: 10px; }
+  .l1 { bottom: 0; width: 200px; height: 60px; background: #f7a1c4; }
+  .l2 { bottom: 55px; width: 160px; height: 50px; background: #fbc4dc; }
+  .icing { bottom: 98px; width: 160px; height: 14px; background: #fff; border-radius: 10px 10px 4px 4px; }
+  .candles { position: absolute; bottom: 110px; left: 50%; transform: translateX(-50%); display: flex; gap: 22px; }
+  .candle { width: 8px; height: 30px; background: repeating-linear-gradient(45deg, #fff 0 4px, var(--pink) 4px 8px); border-radius: 2px; position: relative; }
+  .flame { position: absolute; top: -18px; left: -3px; width: 14px; height: 18px; background: radial-gradient(circle at 50% 70%, #fff7, var(--gold) 40%, #ff8c00 80%); border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%; animation: flicker .3s infinite alternate; }
+  .out .flame { display: none; }
+  @keyframes flicker { to { transform: scale(.9) rotate(3deg); opacity: .85; } }
+  .hint { font-size: .85rem; opacity: .7; }
+
+  .card { margin-top: 28px; background: #ffffff12; border: 1px solid #ffffff2a; border-radius: 18px; padding: 24px; line-height: 1.7; animation: rise .8s ease both; }
+  .card p + p { margin-top: 12px; }
+  .sign { font-family: 'Dancing Script', cursive; font-size: 1.6rem; color: var(--gold); margin-top: 16px; }
+  @keyframes rise { from { opacity: 0; transform: translateY(20px); } }
+  .tease { width: 140px; height: 140px; border-radius: 50%; object-fit: cover; object-position: top; filter: blur(10px); border: 3px solid var(--pink); margin: 28px auto 0; display: block; }
+  .polaroid { background: #fff; padding: 10px 10px 14px; border-radius: 4px; box-shadow: 0 10px 30px #0008; color: #333; font-family: 'Dancing Script', cursive; font-size: 1.25rem; }
+  .polaroid img { display: block; width: 100%; aspect-ratio: 1; object-fit: cover; margin-bottom: 8px; }
+  .hero { width: min(260px, 70vw); margin: 10px auto 0; transform: rotate(-4deg); transition: transform .3s; }
+  .hero:hover { transform: rotate(0) scale(1.03); }
+  .hero img { object-position: top; }
+  button { margin-top: 20px; font: inherit; color: #1a0b2e; background: var(--gold); border: 0; border-radius: 999px; padding: 10px 22px; cursor: pointer; }
+</style>
+</head>
+<body>
+<canvas id="fx"></canvas>
+<main>
+  <!-- before the birthday -->
+  <section id="wait">
+    <h1>Something's coming…</h1>
+    <p class="sub">for Krishali, on 30 October 🎁</p>
+    <div class="count">
+      <div><b id="d">0</b><span>days</span></div>
+      <div><b id="h">0</b><span>hours</span></div>
+      <div><b id="m">0</b><span>mins</span></div>
+      <div><b id="s">0</b><span>secs</span></div>
+    </div>
+    <img class="tease" src="photos/krishali.jpg" alt="">
+    <p class="hint" style="margin-top:10px">guess who? 👀</p>
+  </section>
+
+  <!-- on the birthday -->
+  <section id="party" class="hidden">
+    <h1>Happy Birthday<br>Krishali!</h1>
+    <p class="sub">30 October · officially 19 🎂</p>
+    <figure class="polaroid hero">
+      <img src="photos/krishali.jpg" alt="Krishali with a hair moustache">
+      <figcaption>certified hair-moustache icon 🥸</figcaption>
+    </figure>
+    <div class="cake" id="cake" role="button" tabindex="0" aria-label="Blow out the candles">
+      <div class="candles"><div class="candle"><div class="flame"></div></div><div class="candle"><div class="flame"></div></div><div class="candle"><div class="flame"></div></div></div>
+      <div class="layer icing"></div><div class="layer l2"></div><div class="layer l1"></div>
+    </div>
+    <p class="hint" id="hint">tap the cake to blow out the candles</p>
+
+    <div class="card hidden" id="card">
+      <!-- ✏️ Write your own message here -->
+      <p>Dear Krishali,</p>
+      <p>Happy birthday to the girl who can turn her own hair into a moustache and still be the best-looking person in the photo. 🥸</p>
+      <p>That photo up there says everything about you: goofy, fearless and laughing so hard your glasses go crooked. That smile of yours makes every day a little brighter, and I'm really lucky to call you my friend.</p>
+      <p>You're turning 19 today! 🎉 Nineteen years old and still waiting for that height update. Don't worry, the best things come in small packages, and you're proof of it. 😌</p>
+      <p>May 19 bring you more laughs, more crazy moments and many more hair-moustache selfies. I hope you made a good wish, and have the best birthday ever! 💖</p>
+      <p class="sign">— Jaypal</p>
+      <button id="again">More confetti 🎉</button>
+    </div>  </section>
+</main>
+
+<script>
+  // Shows the party all day on 30 Oct (viewer's local time). Add #surprise to the URL to preview early.
+  const now = new Date();
+  const isDay = now.getMonth() === 9 && now.getDate() === 30;
+  let target = new Date(now.getFullYear(), 9, 30);
+  if (now >= target && !isDay) target = new Date(now.getFullYear() + 1, 9, 30);
+
+  const $ = id => document.getElementById(id);
+
+  function tick() {
+    const ms = target - new Date();
+    if (ms <= 0) return party();
+    const t = Math.floor(ms / 1000);
+    $('d').textContent = Math.floor(t / 86400);
+    $('h').textContent = Math.floor(t / 3600) % 24;
+    $('m').textContent = Math.floor(t / 60) % 60;
+    $('s').textContent = t % 60;
+    setTimeout(tick, 1000);
+  }
+
+  function party() {
+    $('wait').classList.add('hidden');
+    $('party').classList.remove('hidden');
+    confetti(200);
+  }
+
+  function blow() {
+    if ($('cake').classList.contains('out')) return;
+    $('cake').classList.add('out');
+    $('hint').textContent = 'yay! 🎉';
+    $('card').classList.remove('hidden');
+    confetti(300);
+  }
+  $('cake').onclick = blow;
+  $('cake').onkeydown = e => (e.key === 'Enter' || e.key === ' ') && blow();
+  $('again').onclick = () => confetti(250);
+
+  // confetti
+  const cv = $('fx'), ctx = cv.getContext('2d');
+  let bits = [], running = false;
+  const size = () => { cv.width = innerWidth; cv.height = innerHeight; };
+  size(); addEventListener('resize', size);
+  const colors = ['#ff7eb3', '#ffd166', '#7afcff', '#b388ff', '#fff'];
+
+  function confetti(n) {
+    for (let i = 0; i < n; i++) bits.push({
+      x: Math.random() * cv.width, y: -20 - Math.random() * cv.height * .5,
+      vx: (Math.random() - .5) * 3, vy: 2 + Math.random() * 3,
+      r: Math.random() * Math.PI, vr: (Math.random() - .5) * .2,
+      w: 6 + Math.random() * 6, c: colors[i % colors.length]
+    });
+    if (!running) { running = true; requestAnimationFrame(draw); }
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, cv.width, cv.height);
+    for (const b of bits) {
+      b.x += b.vx; b.y += b.vy; b.r += b.vr;
+      ctx.save(); ctx.translate(b.x, b.y); ctx.rotate(b.r);
+      ctx.fillStyle = b.c; ctx.fillRect(-b.w / 2, -b.w / 4, b.w, b.w / 2);
+      ctx.restore();
+    }
+    bits = bits.filter(b => b.y < cv.height + 20);
+    if (bits.length) requestAnimationFrame(draw); else running = false;
+  }
+
+  if (isDay || location.hash === '#surprise') party(); else tick();
+</script>
+</body>
+</html>
